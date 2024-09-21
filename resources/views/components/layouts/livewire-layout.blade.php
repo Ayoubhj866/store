@@ -1,9 +1,22 @@
-<nav x-data="{ open: tru }" class="bg-white border-b border-gray-100">
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Laravel</title>
+    @vite(['resources/js/app.js', 'resources/css/app.css'])
+
+    @livewireStyles()
+</head>
+
+<body class="font-sans antialiased min-h-screen dark:bg-black bg-gray-100/60 dark:text-white/50">
+
     {{-- NAVBAR --}}
     <div class="w-full bg-white">
         <div class="container mx-auto">
-            <x-mary-nav class="border-none  gap-x-4" sticky full-width no-separator>
-
+            <x-mary-nav class="border-none" sticky full-width no-separator>
                 <x-slot:brand>
                     {{-- Drawer toggle for "main-drawer" --}}
                     <label for="main-drawer" class="lg:hidden mr-3">
@@ -18,19 +31,10 @@
                     </div>
                 </x-slot:brand>
 
-                {{-- User nav-items --}}
+                {{-- Right side actions --}}
                 <x-slot:actions>
-                    <div class="flex items-center">
+                    <livewire:cart-items></livewire:cart-items>
 
-                        <x-mary-menu activate-by-route class="flex items-center">
-                            <div class="flex items-center gap-4">
-                                <x-mary-menu-item title="Dashboard" icon="o-home" link="{{ route('dashboard') }}" />
-                                <x-mary-menu-item title="Home" icon="o-home" link="###" />
-                                <x-mary-menu-item title="Products" icon="o-building-storefront"
-                                    link="{{ route('products.management') }}" />
-                            </div>
-                        </x-mary-menu>
-                    </div>
                     @auth
                         <x-mary-dropdown label="Cart" icon="o-user-circle" class="btn-ghost space-y-1 btn-sm">
                             <x-mary-menu-item icon="o-heart" title="Wishlist" />
@@ -44,6 +48,7 @@
                                     <span> logout</span>
                                 </button>
                             </form>
+
                         </x-mary-dropdown>
                     @else
                         <x-mary-button label="Login" icon="o-user-circle" link="{{ route('login') }}"
@@ -54,5 +59,20 @@
         </div>
     </div>
 
+    {{-- MAIN --}}
+    <div class="container mx-auto">
+        <x-mary-main with-nav full-width>
+            <x-slot:content>
+                {{ $slot }}
+            </x-slot:content>
+        </x-mary-main>
+    </div>
 
-</nav>
+    {{-- TOAST --}}
+    <x-mary-toast />
+    </div>
+    @livewireScripts()
+    </div>
+</body>
+
+</html>
