@@ -16,7 +16,7 @@
     {{-- NAVBAR --}}
     <div class="w-full bg-white">
         <div class="container mx-auto">
-            <x-mary-nav class="border-none" sticky full-width no-separator>
+            <x-mary-nav class="border-b-0" sticky full-width no-separator>
                 <x-slot:brand>
                     {{-- Drawer toggle for "main-drawer" --}}
                     <label for="main-drawer" class="lg:hidden mr-3">
@@ -24,11 +24,11 @@
                     </label>
 
                     {{-- Brand --}}
-                    <div class="flex items-center gap-x-2">
+                    <a href="{{ route('home') }}" wire:navigate class="flex items-center gap-x-2">
                         <img class="h-8 w-8" src="{{ asset('images/orange.png') }}" alt="brand logo">
                         <span
                             class="bg-gradient-to-r from-orange-500  to-orange-300 inline-block font-bold text-2xl text-transparent bg-clip-text">Orange.</span>
-                    </div>
+                    </a>
                 </x-slot:brand>
 
                 {{-- Right side actions --}}
@@ -36,9 +36,9 @@
                     <livewire:cart-items></livewire:cart-items>
 
                     @auth
-                        <x-mary-dropdown label="Cart" icon="o-user-circle" class="btn-ghost space-y-1 btn-sm">
-                            <x-mary-menu-item icon="o-heart" title="Wishlist" />
-                            <x-mary-menu-item icon="o-shopping-bag" title="My orders" />
+                        <x-mary-dropdown no-x-anchor label="Cart" icon="o-user-circle" class="btn-ghost space-y-1 btn-sm">
+                            <x-mary-menu-item icon="o-heart" title="Wishlist" wire:navigate />
+                            <x-mary-menu-item icon="o-shopping-bag" title="My orders" wire:navigate />
 
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf

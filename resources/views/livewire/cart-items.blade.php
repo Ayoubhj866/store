@@ -1,25 +1,62 @@
 <div>
     <div class="inline relative px-2">
-        <x-mary-dropdown label="Cart" icon="o-shopping-cart" right class="btn-ghost btn-sm">
-            {{-- All itms added on card here --}}
-            {{-- <x-mary-list-item :item="$user2" no-separator no-hover>
-                                <x-slot:avatar>
-                                    <x-mary-badge value="top user" class="badge-primary" />
-                                </x-slot:avatar>
-                                <x-slot:value>
-                                    Custom value
-                                </x-slot:value>
-                                <x-slot:sub-value>
-                                    Custom sub-value
-                                </x-slot:sub-value>
-                                <x-slot:actions>
-                                    <x-mary-button icon="o-trash" class="text-red-500" wire:click="delete(1)" spinner />
-                                </x-slot:actions>
-                            </x-mary-list-item> --}}
-            <div class="hidden py-3 px-2">
-                Cart is empty !
-            </div>
+        <x-mary-dropdown no-x-anchor label="Cart" icon="o-shopping-cart" right class="btn-ghost  btn-sm">
+            @if ($count > 0)
+                @foreach (Cart::all() as $item)
+                    <ul class="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
+                        <li class="pb-3 sm:pb-4 hover:bg-gray-100">
+                            <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                                <div class="flex-shrink-0">
+                                    <img class="w-8 h-8 rounded-full" src="{{ $item->model->image }}"
+                                        alt="{{ $item->name }} image">
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                        {{ $item->name }}
+                                    </p>
+                                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                        {{ '$' . $item->price }}
+                                    </p>
+                                </div>
+
+                                <div
+                                    class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+
+                                    {{-- remove item from cart  --}}
+                                    <x-mary-button wire:click.stop="removeItemFromCart({{ $item->id }})"
+                                        icon="o-trash" class="btn-circle btn-ghost btn-sm text-error" />
+                                </div>
+                            </div>
+                        </li>
+                @endforeach
+                <div @click.stop class="flex justify-between items-center px-4 h-12">
+                    <div>
+                        <span>{{ $count }} item(s)</span>
+                    </div>
+                    <div>
+                        <span class="font-extrabold text-black">{{ '$' . Cart::total() }}</span>
+                    </div>
+                </div>
+
+                {{-- <x-mary-menu-separator /> --}}
+
+                <div @click.stop class="flex w-[400px] justify-between items-center px-4 h-12">
+                    <div>
+                        <x-mary-button label="Trash cart" icon="o-trash" class="btn-sm btn-ghost text-error" responsive
+                            spinner />
+                    </div>
+
+                    <div>
+                        <x-mary-button label="Go to cart" icon="o-shopping-bag" class="btn-sm btn-primary" responsive
+                            spinner />
+                    </div>
+                </div>
+            @else
+                <div class="py-3 px-2">
+                    Cart is empty !
+                </div>
+            @endif
         </x-mary-dropdown>
-        <x-mary-badge value="0" class="badge-primary absolute -right-2 -top-2" />
+        <x-mary-badge value="{{ $count }}" class="badge-primary absolute -right-2 -top-2" />
     </div>
 </div>

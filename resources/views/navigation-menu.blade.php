@@ -24,9 +24,10 @@
 
                         <x-mary-menu activate-by-route class="flex items-center">
                             <div class="flex items-center gap-4">
-                                <x-mary-menu-item title="Dashboard" icon="o-home" link="{{ route('dashboard') }}" />
-                                <x-mary-menu-item title="Home" icon="o-home" link="###" />
-                                <x-mary-menu-item title="Products" icon="o-building-storefront"
+                                <x-mary-menu-item wire:navigate title="Dashboard" icon="o-home"
+                                    link="{{ route('dashboard') }}" />
+                                <x-mary-menu-item wire:navigate title="Home" icon="o-home" link="###" />
+                                <x-mary-menu-item wire:navigate title="Products" icon="o-building-storefront"
                                     link="{{ route('products.management') }}" />
                             </div>
                         </x-mary-menu>

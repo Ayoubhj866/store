@@ -2,9 +2,11 @@
 
 use App\Livewire\Admin\ProductsManagement;
 use App\Livewire\ProductsListe;
+use App\Livewire\ShowProduct;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', ProductsListe::class);
+Route::get('/', ProductsListe::class)->name('home')->lazy();
+Route::get('/{product:name}', ShowProduct::class)->name('showProduct')->lazy();
 
 Route::middleware([
     'auth:sanctum',
