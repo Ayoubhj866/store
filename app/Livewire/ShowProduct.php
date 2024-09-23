@@ -3,7 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Product;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Mary\Traits\Toast;
@@ -11,7 +11,7 @@ use RealRashid\Cart\Facades\Cart;
 
 class ShowProduct extends Component
 {
-    use Toast;
+    use Toast , WithoutMiddleware;
 
     public Product $product;
 
@@ -22,10 +22,6 @@ class ShowProduct extends Component
      */
     public function addToCart()
     {
-        // user shoud be logged in to add items to cart
-        // if (! Auth::user()) {
-        //     return redirect(route('login'));
-        // }
         $product = $this->product;
         Cart::add(id: $product->id, name: $product->name, quantity: 1, price: $product->price, options: [], taxrate: null)->associate($product->id, $this->product);
         $this->success('Added to cart !', position: 'bottom-end');
@@ -44,13 +40,7 @@ class ShowProduct extends Component
         $this->dispatch('cart-changed');
     }
 
-    #[On('remove')]
-    public function test()
-    {
-        dd('testststst');
-    }
-
-    #[On('remove-item-from-cart')]
+    #[On(['remove-item-from-cart', 'cart-cleared'])]
     public function render()
     {
         return view('livewire.show-product');

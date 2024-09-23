@@ -4,7 +4,7 @@
             @if ($count > 0)
                 @foreach (Cart::all() as $item)
                     <ul class="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
-                        <li class="pb-3 sm:pb-4 hover:bg-gray-100">
+                        <li class=" hover:bg-gray-100">
                             <div class="flex items-center space-x-4 rtl:space-x-reverse">
                                 <div class="flex-shrink-0">
                                     <img class="w-8 h-8 rounded-full" src="{{ $item->model->image }}"
@@ -18,10 +18,8 @@
                                         {{ '$' . $item->price }}
                                     </p>
                                 </div>
-
                                 <div
                                     class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-
                                     {{-- remove item from cart  --}}
                                     <x-mary-button wire:click.stop="removeItemFromCart({{ $item->id }})"
                                         icon="o-trash" class="btn-circle btn-ghost btn-sm text-error" />
@@ -29,26 +27,24 @@
                             </div>
                         </li>
                 @endforeach
-                <div @click.stop class="flex justify-between items-center px-4 h-12">
+                <div @click.stop class="flex justify-between items-center px-4 h-20">
                     <div>
                         <span>{{ $count }} item(s)</span>
                     </div>
                     <div>
-                        <span class="font-extrabold text-black">{{ '$' . Cart::total() }}</span>
+                        Total : <span class="font-extrabold text-black">{{ '$' . Cart::total() }}</span>
                     </div>
                 </div>
 
-                {{-- <x-mary-menu-separator /> --}}
-
-                <div @click.stop class="flex w-[400px] justify-between items-center px-4 h-12">
+                <div @click.stop class="flex w-[400px] justify-between items-center px-4 h-20">
                     <div>
-                        <x-mary-button label="Trash cart" icon="o-trash" class="btn-sm btn-ghost text-error" responsive
-                            spinner />
+                        <x-mary-button wire:click="clearCart" label="Trash cart" icon="o-trash"
+                            class="btn-sm btn-ghost text-error" responsive spinner />
                     </div>
 
                     <div>
-                        <x-mary-button label="Go to cart" icon="o-shopping-bag" class="btn-sm btn-primary" responsive
-                            spinner />
+                        <x-mary-button wire:navigate label="Go to cart" icon="o-shopping-bag" :link="route('cart-content')"
+                            class="btn-sm btn-primary" responsive spinner />
                     </div>
                 </div>
             @else

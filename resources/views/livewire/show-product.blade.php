@@ -1,4 +1,7 @@
 <div>
+    <div class="py-10">
+        <x-mary-button label="Back to market" link="/" icon="o-arrow-long-left" spinner wire:navigate />
+    </div>
     <div class="grid grid-col md:gap-x-10 md:grid-cols-2">
         <div>
             <x-mary-card>
