@@ -2,14 +2,13 @@
     <div class="py-4">
         <x-mary-button label="Back to market" link="/" icon="o-arrow-long-left" spinner wire:navigate />
     </div>
-
     <div class="py-10 grid grid-col md:grid-cols-3 gap-4">
         <div>
-            <img src="{{ asset('images/cart.svg') }}" class="" alt="cart image">
+            <img src="{{ asset('images/checkout.svg') }}" class="" alt="cart image">
         </div>
         @if (Cart::count() > 0)
             <div>
-                <x-mary-card title="Cart" separator shadow progress-indicator="removeItemFromCart">
+                <x-mary-card title="Checkout" separator shadow>
                     {{-- list items here --}}
                     @foreach (Cart::all() as $item)
                         <ul class="max-w-md divide-y divide-gray-200 rounded-xl dark:divide-gray-700">
@@ -29,16 +28,12 @@
                                     </div>
                                     <div
                                         class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                        <x-mary-badge value="{{ $item->quantity }}" class="badge-error mr-2 " />
-
-                                        {{-- remove item from cart  --}}
-                                        <x-mary-button wire:click.stop="removeFromCart({{ $item->id }})"
-                                            icon="o-trash" class="btn-circle btn-ghost btn-sm text-error" />
+                                        <x-mary-badge value="{{ $item->quantity }}" class="badge-secondary mr-2 " />
                                     </div>
                                 </div>
                             </li>
                     @endforeach
-                    <div @click.stop class="flex justify-between items-center px-4 h-20">
+                    <div class="flex justify-between items-center px-4 h-20">
                         <div>
                             <span>{{ Cart::count() }} item(s)</span>
                         </div>
@@ -48,14 +43,23 @@
                     </div>
                 </x-mary-card>
             </div>
+
             <div>
-                <x-mary-card title="I am done" separator shadow>
-                    <x-mary-button label="Chekout" :link="route('checkout')" icon-right="o-arrow-long-right"
-                        class="bg-purple-600 hover:bg-purple-500 transition-all duration-200 text-white" />
+                <x-mary-card title="Payment" separator shadow progress-indicator="checkout">
+                    {{-- Card numebr and cvc number --}}
+                    <x-mary-input wire:model="card_number" label="Card Number / CVC" placeholder="Card number / CVC "
+                        prefix="Visa" x-mask="9999 9999 9999 9999 / 999">
+                    </x-mary-input>
+
+                    <div class="flex justify-end">
+                        <x-mary-button label="Check" wire:click="checkout" icon-right="o-paper-airplane"
+                            class="bg-purple-600 hover:bg-purple-500 transition-all duration-200 text-white mt-6"
+                            spinner />
+                    </div>
                 </x-mary-card>
             </div>
         @else
-            <x-mary-card title="Cart Empty" separator progress-indicator>
+            <x-mary-card title="Cart is Empty" separator progress-indicator>
                 <x-mary-button label="Back to market" link="/" icon="o-arrow-long-left" spinner wire:navigate />
             </x-mary-card>
         @endif

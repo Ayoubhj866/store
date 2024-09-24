@@ -4,7 +4,7 @@
             @if ($count > 0)
                 @foreach (Cart::all() as $item)
                     <ul class="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
-                        <li class=" hover:bg-gray-100">
+                        <li class=" hover:bg-gray-100 my-1">
                             <div class="flex items-center space-x-4 rtl:space-x-reverse">
                                 <div class="flex-shrink-0">
                                     <img class="w-8 h-8 rounded-full" src="{{ $item->model->image }}"

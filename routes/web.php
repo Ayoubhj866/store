@@ -2,6 +2,8 @@
 
 use App\Livewire\Admin\ProductsManagement;
 use App\Livewire\CartContent;
+use App\Livewire\Checkout;
+use App\Livewire\OrderTracker;
 use App\Livewire\ProductsListe;
 use App\Livewire\ShowProduct;
 use Illuminate\Support\Facades\Route;
@@ -10,6 +12,8 @@ Route::get('/', ProductsListe::class)->name('home')->lazy();
 
 Route::middleware('auth')->group(function () {
     Route::get('cart', CartContent::class)->name('cart-content');
+    Route::get('checkout', Checkout::class)->name('checkout');
+    Route::get('order/tracker/{order}', OrderTracker::class)->name('order-tracker');
 
     // Admin routes
     Route::get('/products', ProductsManagement::class)->name('products.management')->lazy();

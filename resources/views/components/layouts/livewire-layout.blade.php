@@ -15,7 +15,7 @@
     {{-- NAVBAR --}}
     <div class="w-full bg-white">
         <div class="mx-auto">
-            <x-mary-nav class="border-b-0 p-4 md:px-48" sticky full-width no-separator>
+            <x-mary-nav class="border-b-0 p-4 md:px-48" sticky spinner full-width no-separator>
                 <x-slot:brand>
                     {{-- Drawer toggle for "main-drawer" --}}
                     <label for="main-drawer" class="lg:hidden mr-3">
