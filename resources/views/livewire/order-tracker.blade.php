@@ -6,32 +6,35 @@
         <div>
             <img src="{{ asset('images/order-tracker.svg') }}" class="" alt="cart image">
         </div>
-        @if (Cart::count() > 0)
+        @if ($this->order)
             <div>
                 <x-mary-card title="Order #{{ $order->id }}" separator shadow>
                     {{-- list items here --}}
                     @foreach ($order->products as $product)
                         <ul class="max-w-md divide-y divide-gray-200 rounded-xl dark:divide-gray-700">
-                            <li class=" hover:bg-gray-100 py-6 px-2 rounded-xl">
-                                <div class="flex items-center space-x-4 rtl:space-x-reverse">
-                                    <div class="flex-shrink-0">
-                                        <img class="w-8 h-8 rounded-full" src="{{ $product->image }}"
-                                            alt="{{ $product->name }} image">
+                            <a href="{{ route('showProduct', $product) }}">
+                                <li class=" hover:bg-gray-100 py-6 px-2 rounded-xl">
+                                    <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                                        <div class="flex-shrink-0">
+                                            <img class="w-8 h-8 rounded-full" src="{{ $product->image }}"
+                                                alt="{{ $product->name }} image">
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                {{ $product->name }}
+                                            </p>
+                                            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                {{ '$' . $product->pivot->unit_price }}
+                                            </p>
+                                        </div>
+                                        <div
+                                            class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                            <x-mary-badge value="{{ $product->pivot->quantity }}"
+                                                class="badge-secondary mr-2 " />
+                                        </div>
                                     </div>
-                                    <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                            {{ $product->name }}
-                                        </p>
-                                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                                            {{ '$' . $product->price }}
-                                        </p>
-                                    </div>
-                                    <div
-                                        class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                        <x-mary-badge value="{{ $product->quantity }}" class="badge-secondary mr-2 " />
-                                    </div>
-                                </div>
-                            </li>
+                                </li>
+                            </a>
                     @endforeach
                     <div class="flex justify-between items-center px-4 h-20">
                         <div>

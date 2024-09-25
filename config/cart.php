@@ -36,12 +36,6 @@ return [
     */
     'instances' => [
 
-        // Costumizable instance bu me
-        config('cart.default') => [
-            'tax_enabled' => env('CART_TAX_ENABLED', false), // Enable tax for this instance
-            'tax_rate' => env('CART_DEFAULT_TAXRATE', 0), // The default tax rate for this cart instance (0.10 represents 10% tax)
-        ],
-
         // Default Cart Instance Configuration
         config('cart.default') => [
             'tax_enabled' => env('CART_TAX_ENABLED', false), // Enable tax for this instance

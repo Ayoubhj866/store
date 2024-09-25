@@ -53,8 +53,7 @@
 
                     <div class="flex justify-end">
                         <x-mary-button label="Check" wire:click="checkout" icon-right="o-paper-airplane"
-                            class="bg-purple-600 hover:bg-purple-500 transition-all duration-200 text-white mt-6"
-                            spinner />
+                            class="btn-purple transition-all duration-200 text-white mt-6" spinner />
                     </div>
                 </x-mary-card>
             </div>

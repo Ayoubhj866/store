@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Mary\Traits\Toast;
@@ -51,6 +52,7 @@ class Checkout extends Component
                 if (Cart::count() > 0) {
                     // crate the order
                     $order = $this->user->orders()->create([
+                        'uuid' => (string) Str::uuid(),
                         'total_amount' => $this->total_amount,
                         'status_date' => now(),
                     ]);
@@ -73,7 +75,14 @@ class Checkout extends Component
 
                     // database will commited if all operation success
                     DB::commit();
+
+                    // clear the cart
+                    Cart::clear();
+                    $this->dispatch('cart-changer');
                     $this->success('Payment success, your order is on review !', position : 'bottom-end');
+
+                    // disolay the order tracker progress
+                    return redirect()->route('order-tracker', $order);
                 } else {
                     $this->error('You don\'t have items in cart !', position : 'bottom-end');
                 }

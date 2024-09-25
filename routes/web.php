@@ -3,6 +3,7 @@
 use App\Livewire\Admin\ProductsManagement;
 use App\Livewire\CartContent;
 use App\Livewire\Checkout;
+use App\Livewire\OrdersList;
 use App\Livewire\OrderTracker;
 use App\Livewire\ProductsListe;
 use App\Livewire\ShowProduct;
@@ -13,7 +14,8 @@ Route::get('/', ProductsListe::class)->name('home')->lazy();
 Route::middleware('auth')->group(function () {
     Route::get('cart', CartContent::class)->name('cart-content');
     Route::get('checkout', Checkout::class)->name('checkout');
-    Route::get('order/tracker/{order}', OrderTracker::class)->name('order-tracker');
+    Route::get('order/tracker/{order:uuid}', OrderTracker::class)->name('order-tracker');
+    Route::get('/orders', OrdersList::class)->name('orders-list')->lazy();
 
     // Admin routes
     Route::get('/products', ProductsManagement::class)->name('products.management')->lazy();

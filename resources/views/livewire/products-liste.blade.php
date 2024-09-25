@@ -66,15 +66,7 @@
     <x-mary-header title="" separator progress-indicator />
 
     {{-- Product liste --}}
-    @if ($this->products->isEmpty())
-        <div class="text-center">
-            <img src="{{ asset('images/Empty-state.svg') }}" class="max-w-[500px] mx-auto max-h-[500px]"
-                alt="Empty state image">
-            <p>
-                No Product found !
-            </p>
-        </div>
-    @else
+    @if (!$this->products->isEmpty())
         <div class="grid grid-col sm:grid-cols-2 md:grid-cols-4 gap-4">
             @foreach ($this->products as $product)
                 <x-mary-card wire:key="{{ $product->id }}" title="{{ '$' . $product->price }}">
@@ -86,10 +78,19 @@
                         </a>
                     </x-slot:figure>
                     <x-slot:menu>
-                        <x-mary-button icon="o-heart" class="px-4 " />
+                        {{-- livewire component to manage wishliste --}}
+                        <livewire:wishlist :$product />
                     </x-slot:menu>
                 </x-mary-card>
             @endforeach
+        </div>
+    @else
+        <div class="text-center">
+            <img src="{{ asset('images/Empty-state.svg') }}" class="max-w-[500px] mx-auto max-h-[500px]"
+                alt="Empty state image">
+            <p>
+                No Product found !
+            </p>
         </div>
     @endif
 </div>

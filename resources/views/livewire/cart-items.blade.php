@@ -44,7 +44,7 @@
 
                     <div>
                         <x-mary-button wire:navigate label="Go to cart" icon="o-shopping-bag" :link="route('cart-content')"
-                            class="btn-sm btn-primary" responsive spinner />
+                            class="btn-sm btn-purple" responsive spinner />
                     </div>
                 </div>
             @else

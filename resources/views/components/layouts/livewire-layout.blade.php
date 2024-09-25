@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Laravel</title>
+
+    <tallstackui:script />
     @vite(['resources/js/app.js', 'resources/css/app.css'])
 
     @livewireStyles()
@@ -38,7 +40,7 @@
                         <x-mary-dropdown no-x-anchor :label="Auth::user()->name" icon="o-user-circle"
                             class="btn-ghost space-y-1 btn-sm">
                             <x-mary-menu-item icon="o-heart" title="Wishlist" wire:navigate />
-                            <x-mary-menu-item icon="o-shopping-bag" title="My orders" wire:navigate />
+                            <x-mary-menu-item :link="route('orders-list')" icon="o-shopping-bag" title="My orders" wire:navigate />
 
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf

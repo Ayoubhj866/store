@@ -24,7 +24,7 @@
                                 wire:click="removeFromCart" />
                         @else
                             {{-- add to cart --}}
-                            <x-mary-button spinner label="Add to cart" class="btn-primary" icon="o-shopping-cart"
+                            <x-mary-button spinner label="Add to cart" class="btn-purple" icon="o-shopping-cart"
                                 wire:click="addToCart" />
                         @endif
                         {{-- wishlist --}}
