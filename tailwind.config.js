@@ -22,6 +22,7 @@ export default {
 
 	daisyui: {
 		themes: [
+			"cupcake",
 			{
 				cupcake: {
 					...require("daisyui/src/theming/themes")["light"],
@@ -40,7 +41,7 @@ export default {
 					}
 				},
 			},
-			"cupcake",
+
 		],
 	},
 

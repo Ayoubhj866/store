@@ -48,7 +48,7 @@ class ProductsListe extends Component
         $this->category = [];
     }
 
-    #[Computed()]
+    #[Computed]
     public function products()
     {
         return Product::where('name', 'like', '%'.$this->search.'%')

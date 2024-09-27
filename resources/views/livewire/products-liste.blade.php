@@ -79,7 +79,7 @@
                     </x-slot:figure>
                     <x-slot:menu>
                         {{-- livewire component to manage wishliste --}}
-                        <livewire:wishlist :$product />
+                        <livewire:wishlist :$product wire:key="wishlist-{{ $product->id }}" />
                     </x-slot:menu>
                 </x-mary-card>
             @endforeach
