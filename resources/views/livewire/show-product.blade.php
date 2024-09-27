@@ -16,7 +16,7 @@
                 <div class="flex flex-col gap-4">
                     <x-mary-badge value="{{ '$' . $product->price }}" class="badge-neutral" />
 
-                    <div class="mt-4">
+                    <div class="mt-4 flex items-center gap-4">
 
                         @if (Cart::get($product->id))
                             {{-- remove from cart --}}
@@ -27,8 +27,8 @@
                             <x-mary-button spinner label="Add to cart" class="btn-purple" icon="o-shopping-cart"
                                 wire:click="addToCart" />
                         @endif
-                        {{-- wishlist --}}
-                        <x-mary-button spinner icon="o-heart" class="px-4" tooltip="wishlist" />
+                        {{-- add item to wish list wishlist --}}
+                        <livewire:wishlist :$product />
                     </div>
                 </div>
                 <div class="mt-7">

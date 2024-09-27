@@ -12,7 +12,7 @@
             @endif
             <x-mary-dropdown label="Brand" class="btn-outline border-blue-700" no-x-anchor>
                 {{-- clear filter --}}
-                <x-mary-menu-item wire:click="clearBrandFilter" icon="o-x-mark" title="Clear filter" />
+                <x-mary-menu-item wire:click.live="clearBrandFilter" icon="o-x-mark" title="Clear filter" />
 
                 <x-mary-menu-separator />
 
@@ -37,7 +37,7 @@
             @endif
             <x-mary-dropdown label="Category" class="btn-outline border-blue-700 relative" no-x-anchor>
                 {{-- clear category  filter --}}
-                <x-mary-menu-item wire:click="clearCategoryFilter()" icon="o-x-mark" title="Clear filter" />
+                <x-mary-menu-item wire:click.live="clearCategoryFilter()" icon="o-x-mark" title="Clear filter" />
 
                 <x-mary-menu-separator />
 

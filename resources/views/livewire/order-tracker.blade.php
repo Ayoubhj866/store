@@ -49,7 +49,7 @@
 
             <div>
                 <x-mary-card title="Status" separator shadow>
-                    <x-mary-timeline-item title="Order placed" first icon="o-map-pin" />
+                    <x-mary-timeline-item title="Order placed" :subtitle="$order->created_at" first icon="o-map-pin" />
                     @if ($order->status == 'confirmed' || $order->status == 'shipped' || $order->status == 'delivered')
                         <x-mary-timeline-item title="Payment confirmed" icon="o-credit-card" />
                     @else
@@ -78,3 +78,4 @@
         @endif
     </div>
 </div>
+2024-09-27 19:08:23

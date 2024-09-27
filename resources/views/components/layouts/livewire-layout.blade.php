@@ -35,13 +35,17 @@
                 {{-- Right side actions --}}
                 <x-slot:actions>
                     <livewire:cart-items></livewire:cart-items>
-
                     @auth
                         <x-mary-dropdown no-x-anchor :label="Auth::user()->name" icon="o-user-circle"
                             class="btn-ghost space-y-1 btn-sm">
-                            <x-mary-menu-item icon="o-heart" title="Wishlist" wire:navigate />
+
+                            {{-- wishlist --}}
+                            <x-mary-menu-item icon="o-heart" :link="route('wishlist-items')" title="Wishlist" wire:navigate />
+
+                            {{-- Orders  --}}
                             <x-mary-menu-item :link="route('orders-list')" icon="o-shopping-bag" title="My orders" wire:navigate />
 
+                            {{-- Logout --}}
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
                                 <button type="submit"

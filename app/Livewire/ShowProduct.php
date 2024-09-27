@@ -25,7 +25,7 @@ class ShowProduct extends Component
         $product = $this->product;
         Cart::add(id: $product->id, name: $product->name, quantity: 1, price: $product->price, options: [], taxrate: null)->associate($product->id, $this->product);
         $this->success('Added to cart !', position: 'bottom-end');
-        $this->dispatch('cart-changed');
+        $this->dispatch('cart-updated');
     }
 
     /**
@@ -37,7 +37,7 @@ class ShowProduct extends Component
     {
         Cart::remove($this->product->id);
         $this->error('Removed from cart!', position: 'bottom-end');
-        $this->dispatch('cart-changed');
+        $this->dispatch('cart-updated');
     }
 
     #[On(['remove-item-from-cart', 'cart-cleared'])]
