@@ -11,12 +11,7 @@ class CartItems extends Component
 {
     use Toast;
 
-    public $count;
-
-    public function boot()
-    {
-        $this->updateCartCount();
-    }
+    public $count = 0;
 
     /**
      * removeItemFromCart : remove item from cart
@@ -28,7 +23,6 @@ class CartItems extends Component
     {
         if (Cart::get($id)) {
             Cart::remove($id);
-            $this->updateCartCount();
             $this->error('Removed from cart!', position: 'bottom-end');
             $this->dispatch('remove-item-from-cart');
         } else {
@@ -45,22 +39,11 @@ class CartItems extends Component
     {
         Cart::clear();
         $this->info('Cart Cleared !', position: 'bottom-end');
-        $this->updateCartCount();
         $this->dispatch('cart-cleared');
     }
 
-    #[On(['cart-changed', 'removeItemFromCart'])]
-    public function refreshCart()
-    {
-        $this->updateCartCount();
-    }
-
-    /**
-     * updateCartCount : update cart count items
-     *
-     * @return void
-     */
-    public function updateCartCount()
+    #[On('cart-updated')]
+    public function refresh()
     {
         $this->count = Cart::count();
     }
