@@ -6,15 +6,26 @@ use App\Models\Product;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ProductsListe extends Component
 {
+    use WithPagination;
+
     public $category = [];
+
+    public $perpage = 8;
 
     #[Url(as: 'q')]
     public $search = '';
 
     public $brand = [];
+
+    public function loadMore()
+    {
+        sleep(1);
+        $this->perpage += 8;
+    }
 
     public function updating($property, $value)
     {
@@ -58,7 +69,7 @@ class ProductsListe extends Component
             ->when(! empty($this->brand), function ($query) {
                 return $query->whereIn('brand', $this->brand);
             })
-            ->get();
+            ->paginate($this->perpage);
     }
 
     public function render()

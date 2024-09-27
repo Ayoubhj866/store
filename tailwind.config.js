@@ -25,11 +25,12 @@ export default {
 			"cupcake",
 			{
 				cupcake: {
-					...require("daisyui/src/theming/themes")["light"],
-					primary: "#00CCDD",
+					...require("daisyui/src/theming/themes")["cupcake"],
+					// primary: "#3457D5",
+					primary: "#6d28d9",
 					// primary: "teal",
 					".bg-primary": {
-						"background-color": "#4F75FF",
+						"background-color": "#3457D5",
 					},
 					".btn-purple": {
 						'background-color': "#6d28d9",
@@ -53,8 +54,8 @@ export default {
 			},
 			colors: {
 				primary: {
-					default: "#4F75FF",
-					'500': "#4F75FF",
+					default: "#3457D5",
+					'500': "#3457D5",
 				}
 			}
 		},

@@ -1,6 +1,6 @@
 <div>
     <div class="inline relative px-2">
-        <x-mary-dropdown no-x-anchor label="Cart" icon="o-shopping-cart" right class="btn-ghost  btn-sm">
+        <x-mary-dropdown no-x-anchor label="Cart" icon="s-shopping-cart" right class="btn-ghost  btn-sm">
             @if (cart()->count() > 0)
                 @foreach (Cart::all() as $item)
                     <ul class="max-w-md divide-y divide-gray-200 dark:divide-gray-700">

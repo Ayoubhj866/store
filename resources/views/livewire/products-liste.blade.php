@@ -10,7 +10,7 @@
             @if (isset($brand) && count($brand) > 0)
                 <x-mary-badge value="{{ count($brand) }}" class="badge-primary absolute -right-2 z-40 -top-2" />
             @endif
-            <x-mary-dropdown label="Brand" class="btn-outline border-blue-700" no-x-anchor>
+            <x-mary-dropdown label="Brand" class="relative" no-x-anchor>
                 {{-- clear filter --}}
                 <x-mary-menu-item wire:click.live="clearBrandFilter" icon="o-x-mark" title="Clear filter" />
 
@@ -35,7 +35,7 @@
             @if (isset($category) && count($category) > 0)
                 <x-mary-badge value="{{ count($category) }}" class="badge-primary absolute -right-2 z-40 -top-2" />
             @endif
-            <x-mary-dropdown label="Category" class="btn-outline border-blue-700 relative" no-x-anchor>
+            <x-mary-dropdown label="Category" class=" relative" no-x-anchor>
                 {{-- clear category  filter --}}
                 <x-mary-menu-item wire:click.live="clearCategoryFilter()" icon="o-x-mark" title="Clear filter" />
 
@@ -83,6 +83,14 @@
                     </x-slot:menu>
                 </x-mary-card>
             @endforeach
+        </div>
+
+        <div x-intersect.full="$wire.loadMore()" class="py-10">
+            <div wire:loading wire:target='loadMore' class="flex w-full items-center justify-center">
+                <span class="flex w-full items-center gap-2  text-blue-500 justify-center">
+                    <x-mary-loading class="loading-dots  m-auto" />
+                </span>
+            </div>
         </div>
     @else
         <div class="text-center">

@@ -79,10 +79,9 @@ class Checkout extends Component
                     // clear the cart
                     Cart::clear();
                     $this->dispatch('cart-changer');
-                    $this->success('Payment success, your order is on review !', position : 'bottom-end');
-
-                    // disolay the order tracker progress
-                    return redirect()->route('order-tracker', $order);
+                    $this->success('Payment success, your order is on review !',
+                        position : 'bottom-end',
+                        redirectTo: route('order-tracker', $order));
                 } else {
                     $this->error('You don\'t have items in cart !', position : 'bottom-end');
                 }
