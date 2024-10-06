@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Brand;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,8 +22,8 @@ class ProductFactory extends Factory
             'name' => fake()->name(),
             'description' => fake()->paragraph(8),
             'price' => fake()->randomFloat(2, 10, 1000),
-            'brand' => fake()->randomElement(['Apple', 'LG', 'Samsung']),
-            'category' => fake()->randomElement(['Phone', 'Computer', 'Sound']),
+            'brand_id' => Brand::inRandomOrder()->first()->id,
+            'category_id' => Category::inRandomOrder()->first()->id,
             'image' => 'https://picsum.photos/500/350?random='.$this->faker->unique()->numberBetween(1, 1000),
         ];
     }

@@ -13,9 +13,10 @@ class OrdersList extends Component
 
     public $orderStatus = [
         'placed' => 'neutral',
-        'confirmed' => 'secondary',
+        'confirmed' => 'ghost',
         'shipped' => 'primary',
-        'delivered' => 'error',
+        'delivered' => 'success',
+        'cancelled' => 'error',
     ];
 
     /**

@@ -8,38 +8,41 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.tiny.cloud/1/YOUR-KEY-HERE/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+    {{-- Cropper.js --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css" />
 
     <!-- Styles -->
     @livewireStyles
 </head>
 
-<body class="font-sans antialiased">
-    <x-banner />
+<body class="font-poppins antialiased">
+    <div class="container mx-auto">
 
-    <div class="min-h-screen bg-gray-100">
-        @livewire('navigation-menu')
+        @include('layouts.includes.navbare')
 
-        <!-- Page Heading -->
-        @if (isset($header))
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
-        @endif
+        {{-- The main content with `full-width` --}}
+        <x-mary-main with-nav full-width class="bg-white">
 
-        <!-- Page Content -->
-        <main class="container mx-auto py-6">
-            {{ $slot }}
-        </main>
+            {{-- drawer --}}
+            <x-slot:sidebar drawer="main-drawer" collapsible class="bg-base-200">
+
+                {{-- side bare here --}}
+                @include('layouts.includes.sidebare')
+
+                {{-- The `$slot` goes here --}}
+                <x-slot:content>
+                    {{ $slot }}
+                </x-slot:content>
+        </x-mary-main>
     </div>
 
+    {{--  TOAST area --}}
+    <x-mary-toast />
     @stack('modals')
 
     @livewireScripts

@@ -5,8 +5,13 @@
     <div class="grid grid-col md:gap-x-10 md:grid-cols-2">
         <div>
             <x-mary-card>
-                <x-slot:figure class="mt-4">
-                    <img src="{{ $product->image }}" />
+                <x-slot:figure class="mt-4 max-h-[300px] w-[500px] mx-auto rounded-xl">
+                    @php
+                        $imageUrl = str_contains($product->image, 'picsum.photos')
+                            ? $product->image
+                            : asset('storage/' . $product->image);
+                    @endphp
+                    <img src="{{ $imageUrl }}" class="h-100 w-full" />
                 </x-slot:figure>
             </x-mary-card>
         </div>

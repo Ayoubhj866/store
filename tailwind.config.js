@@ -1,6 +1,7 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
 import typography from '@tailwindcss/typography';
+import { nord } from 'daisyui/src/theming/themes';
 
 /** @type {import('tailwindcss').Config} */
 
@@ -14,9 +15,9 @@ export default {
 		'./vendor/tallstackui/tallstackui/src/**/*.php',
 	],
 
-	presets: [
-		require('./vendor/tallstackui/tallstackui/tailwind.config.js')
-	],
+	// presets: [
+	// 	require('./vendor/tallstackui/tallstackui/tailwind.config.js')
+	// ],
 
 	darkMode: "class",
 
@@ -39,7 +40,11 @@ export default {
 					".btn-purple:hover": {
 						'background-color': "#7c3aed",
 						"color": "#fff",
-					}
+					},
+					".outline-none": {
+						'border': "none",
+						'border-color': "red"
+					},
 				},
 			},
 
@@ -62,8 +67,8 @@ export default {
 	},
 
 	plugins: [
+		require("daisyui"),
 		forms,
-		typography,
-		require("daisyui")
+		// typography,
 	],
 };

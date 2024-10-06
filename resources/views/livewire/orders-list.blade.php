@@ -24,7 +24,8 @@
                         <x-slot:actions>
                             <div>
                                 {{-- order status --}}
-                                <x-mary-badge :value="'order ' . $order->status" class="badge-{{ $orderStatus['shipped'] }} text-white"
+                                <x-mary-badge :value="'order ' . $order->status"
+                                    class="badge-xs badge-{{ $orderStatus[$order->status] }} "
                                     tooltip="Visite Order tracker" />
 
                                 {{-- Track Order --}}

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>E-COM</title>
 
     <tallstackui:script />
     @vite(['resources/js/app.js', 'resources/css/app.css'])
@@ -13,7 +13,7 @@
     @livewireStyles()
 </head>
 
-<body class="font-poppins antialiased min-h-screen dark:bg-black bg-gray-100/60 dark:text-white/50">
+<body class="font-poppins antialiased min-h-screen dark:bg-black bg-neutral-100 dark:text-white/50">
     {{-- NAVBAR --}}
     <div class="w-full bg-white">
         <div class="mx-auto">

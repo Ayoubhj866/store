@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Mary\Traits\Toast;
 use RealRashid\Cart\Facades\Cart;
@@ -26,6 +27,10 @@ class Wishlist extends Component
      */
     public function addToWishlist()
     {
+        if (! Auth::check()) {
+            return redirect()->route('login');
+        }
+
         $product = $this->product;
         Cart::instance('wishlist')->add(id: $product->id, name: $product->name, quantity: 1, price: $product->price, options: [], taxrate: null)->associate($product->id, $this->product);
         $this->success('Added to wishlist !', position: 'bottom-end', icon: 'o-heart');

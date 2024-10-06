@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Product;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
@@ -62,14 +64,27 @@ class ProductsListe extends Component
     #[Computed]
     public function products()
     {
-        return Product::where('name', 'like', '%'.$this->search.'%')
+        return Product::with('category', 'brand')
+            ->where('name', 'like', '%'.$this->search.'%')
             ->when(! empty($this->category), function ($query) {
-                return $query->whereIn('category', $this->category);
+                return $query->whereIn('category_id', $this->category);
             })
             ->when(! empty($this->brand), function ($query) {
-                return $query->whereIn('brand', $this->brand);
+                return $query->whereIn('brand_id', $this->brand);
             })
             ->paginate($this->perpage);
+    }
+
+    #[Computed]
+    public function categories()
+    {
+        return Category::all();
+    }
+
+    #[Computed]
+    public function brands()
+    {
+        return Brand::all();
     }
 
     public function render()

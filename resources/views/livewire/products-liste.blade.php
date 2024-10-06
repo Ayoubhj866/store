@@ -15,18 +15,14 @@
                 <x-mary-menu-item wire:click.live="clearBrandFilter" icon="o-x-mark" title="Clear filter" />
 
                 <x-mary-menu-separator />
+                <div class="max-h-96 overflow-auto">
+                    @foreach ($this->brands as $brd)
+                        <x-mary-menu-item wire:key="brand-{{ $brd->id }}" @click.stop="">
+                            <x-mary-checkbox :value="$brd->id" wire:model.live="brand" :label="$brd->name" />
+                        </x-mary-menu-item>
+                    @endforeach
+                </div>
 
-                <x-mary-menu-item @click.stop="">
-                    <x-mary-checkbox value="Apple" wire:model.live="brand" label="Apple" />
-                </x-mary-menu-item>
-
-                <x-mary-menu-item @click.stop="">
-                    <x-mary-checkbox value="Samsung" wire:model.live="brand" label="Samsung" />
-                </x-mary-menu-item>
-
-                <x-mary-menu-item @click.stop="">
-                    <x-mary-checkbox value="LG" wire:model.live="brand" label="LG" />
-                </x-mary-menu-item>
             </x-mary-dropdown>
         </div>
 
@@ -35,23 +31,21 @@
             @if (isset($category) && count($category) > 0)
                 <x-mary-badge value="{{ count($category) }}" class="badge-primary absolute -right-2 z-40 -top-2" />
             @endif
+
             <x-mary-dropdown label="Category" class=" relative" no-x-anchor>
+
                 {{-- clear category  filter --}}
                 <x-mary-menu-item wire:click.live="clearCategoryFilter()" icon="o-x-mark" title="Clear filter" />
 
                 <x-mary-menu-separator />
+                <div class="max-h-96 overflow-auto scroll-m-1">
+                    @foreach ($this->categories as $cat)
+                        <x-mary-menu-item wire:key="cat-{{ $cat->id }}" @click.stop="">
+                            <x-mary-checkbox :value="$cat->id" wire:model.live="category" :label="$cat->name" />
+                        </x-mary-menu-item>
+                    @endforeach
+                </div>
 
-                <x-mary-menu-item @click.stop="">
-                    <x-mary-checkbox value="Phone" wire:model.live="category" label="Phone" />
-                </x-mary-menu-item>
-
-                <x-mary-menu-item @click.stop="">
-                    <x-mary-checkbox value="Sound" wire:model.live="category" label="Sound" />
-                </x-mary-menu-item>
-
-                <x-mary-menu-item @click.stop="">
-                    <x-mary-checkbox value="Computer" wire:model.live="category" label="Computer" />
-                </x-mary-menu-item>
             </x-mary-dropdown>
         </div>
 
@@ -71,10 +65,17 @@
             @foreach ($this->products as $product)
                 <x-mary-card wire:key="{{ $product->id }}" title="{{ '$' . $product->price }}">
                     {{ $product->name }}
-                    <x-slot:figure>
-                        <a href="{{ route('showProduct', $product) }}" wire:navigate>
-                            <img src="{{ $product->image }}"
-                                class="hover:scale-105 transition-transform duration-200" />
+                    <x-slot:figure class="">
+
+                        @php
+                            $imageUrl = str_contains($product->image, 'picsum.photos')
+                                ? $product->image
+                                : asset('storage/' . $product->image);
+                        @endphp
+
+                        <a href="{{ route('showProduct', $product) }}" wire:navigate class=min-h-[250px] flex">
+                            <img src="{{ $imageUrl }}" class="hover:scale-105 transition-transform duration-200"
+                                class="h-full w-full" />
                         </a>
                     </x-slot:figure>
                     <x-slot:menu>
@@ -85,10 +86,11 @@
             @endforeach
         </div>
 
+        {{-- load more indicator --}}
         <div x-intersect.full="$wire.loadMore()" class="py-10">
             <div wire:loading wire:target='loadMore' class="flex w-full items-center justify-center">
-                <span class="flex w-full items-center gap-2  text-blue-500 justify-center">
-                    <x-mary-loading class="loading-dots  m-auto" />
+                <span class="flex w-full items-center gap-2  justify-center">
+                    <x-mary-loading class="loading-bars" />
                 </span>
             </div>
         </div>
