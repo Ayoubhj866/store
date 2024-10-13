@@ -8,7 +8,7 @@
             <x-slot:actions>
                 {{-- <x-mary-button icon="o-funnel" label="Filters" responsive @click="$wire.filterDrawer = true" /> --}}
                 @include('livewire.includes.products-filter-actions')
-                <x-mary-button icon="o-plus" class="btn-primary" label="Create" responsive />
+                <x-mary-button :link="route('create-product')" icon="o-plus" class="btn-primary" label="Create" responsive />
             </x-slot:actions>
         </x-mary-header>
 

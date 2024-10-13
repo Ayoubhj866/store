@@ -22,9 +22,9 @@ class Test extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'min:3', 'max:25'],
+            'name' => ['required', 'string', 'min:3', 'max:25', 'unique:products,name'],
             'price' => ['required', 'numeric'],
-            'image' => ['required', 'image', 'mimes:png,jpg,jpeg'],
+            'image' => ['image', 'mimes:png,jpg,jpeg'],
             'description' => ['required', 'string', 'min:10', 'max:1000'],
             'categpryId' => ['required', 'exists:categories,id'],
             'brandId' => ['required', 'exists:brands,id'],

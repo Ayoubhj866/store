@@ -3,7 +3,8 @@
     {{-- header --}}
     <x-mary-header :title="$product->name" separator progress-indicator class="">
         <x-slot:actions>
-            <x-mary-button icon="o-trash" class="btn-error" label="delete" responsive />
+            <x-mary-button icon="o-trash" class="btn-error" label="delete" responsive wire:click="delete"
+                wire:confirm="Are you sure?" />
         </x-slot:actions>
     </x-mary-header>
 
@@ -42,18 +43,24 @@
                 </div>
 
             </x-mary-card>
-
             @php
-                $imageUrl = str_contains($product->image, 'picsum.photos')
-                    ? $product->image
-                    : asset('storage/' . $product->image);
+                $imageUrl = false;
+                if ($product->image != '') {
+                    $imageUrl = str_contains($product->image, 'picsum.photos')
+                        ? $product->image
+                        : asset('storage/' . $product->image);
+                }
             @endphp
 
             <div class="space-y-4">
                 {{-- product Cover --}}
                 <x-mary-card title="Cover" separator progress-indicator class="bg-white">
-                    <x-mary-file wire:model="image" accept="image/png,jpg,jpeg" crop-after-change>
-                        <img src="{{ $imageUrl ?? asset('images/Empty-state.svg') }}" class="h-40 rounded-lg" />
+                    <x-mary-file wire:model="image" accept="image/png,jpg,jpeg" crop-after-change class="mx-auto">
+                        @if ($imageUrl)
+                            <img src="{{ $imageUrl }}" class="h-40 rounded-lg" />
+                        @else
+                            <img src="{{ asset('images/no-image.svg') }}" class="h-40 rounded-lg" />
+                        @endif
                     </x-mary-file>
                 </x-mary-card>
 

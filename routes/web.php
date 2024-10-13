@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Admin\CreateProduct;
 use App\Livewire\Admin\EditProduct;
 use App\Livewire\Admin\ProductsManagement;
 use App\Livewire\CartContent;
@@ -38,6 +39,7 @@ Route::middleware('auth')->group(function () {
     ////**** MANAGE PRODUCTS START */
     Route::get('/products', ProductsManagement::class)->name('products.management')->lazy();
     Route::get('/products/{product:name}/edit', EditProduct::class)->name('edit-product')->lazy();
+    Route::get('/products/create', CreateProduct::class)->name('create-product')->lazy();
     ////**** MANAGE PRODUCTS END */
 
     //users routes

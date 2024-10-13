@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
@@ -79,28 +80,68 @@ class EditProduct extends Component
         return Category::all();
     }
 
+    public function delete()
+    {
+        //AUTORISATION
+        try {
+            $this->product->delete();
+            $this->toast('info', 'product deleted with success !', position: 'bottom-end',
+                redirectTo: '/products');
+        } catch (\Throwable $th) {
+            $this->toast('error', "we can't delete this product", position: 'bottom-end');
+        }
+    }
+
+    /**
+     * saveChanges : save updated changes
+     *
+     * @return void
+     */
     public function saveChanges()
     {
         $validatedData = $this->validate();
 
-        // check if the image chaged
-        if ($this->image instanceof TemporaryUploadedFile) {
-            $validatedData['image'] = Storage::disk('public')->putFile('productsImages', $this->image);
+        // Begin database transation
+        DB::beginTransaction();
+
+        try {
+            // check if another image is selected
+            if ($this->image instanceof TemporaryUploadedFile) {
+                // store the new image and get the path
+                $validatedData['image'] = Storage::disk('public')->putFile('productsImages', $this->image);
+
+                // delete the old image
+                Storage::disk('public')->delete($this->product->image);
+            }
+
+            // save changes
+            $this->product->update(Arr::only($validatedData, ['image', 'name', 'price', 'description']));
+
+            // associated with new category
+            $this->product->category()->associate($validatedData['categoryId']);
+
+            // associate it with new brand
+            $this->product->brand()->associate($validatedData['brandId']);
+
+            // save changes
+            $this->product->save();
+
+            DB::commit();
+
+            //flash message with redirect
+            $this->success(
+                'Product updated with success !',
+                position: 'bottom-end',
+                redirectTo: '/products'
+            );
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            $this->error(
+                'Error updating product !',
+                position: 'bottom-end',
+                // redirectTo: '/products'
+            );
         }
-
-        // save changes
-        $this->product->update(Arr::only($validatedData, ['image', 'name', 'price', 'description']));
-
-        $this->product->category()->associate($validatedData['categoryId']);
-        $this->product->brand()->associate($validatedData['brandId']);
-        $this->product->save();
-
-        //flash message
-        $this->success(
-            'Product updated !',
-            position: 'bottom-end',
-            redirectTo: '/products'
-        );
     }
 
     public function render()
