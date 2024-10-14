@@ -12,7 +12,7 @@
     @endif
     <x-mary-dropdown label="Brand" class="relative" no-x-anchor>
         {{-- clear filter --}}
-        <x-mary-menu-item wire:click.live="clearBrandFilter" icon="o-x-mark" title="Clear filter" />
+        <x-mary-menu-item wire:click="clearBrandFilter" icon="o-x-mark" title="Clear filter" />
 
         <x-mary-menu-separator />
         <div class="max-h-96 overflow-auto">
@@ -35,7 +35,7 @@
     <x-mary-dropdown label="Category" class=" relative" no-x-anchor>
 
         {{-- clear category  filter --}}
-        <x-mary-menu-item wire:click.live="clearCategoryFilter()" icon="o-x-mark" title="Clear filter" />
+        <x-mary-menu-item wire:click="clearCategoryFilter" icon="o-x-mark" title="Clear filter" />
         <x-mary-menu-separator />
         <div class="max-h-96 overflow-auto scroll-m-1">
             @foreach ($this->getCategories as $cat)

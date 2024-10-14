@@ -79,6 +79,8 @@ class ProductsManagement extends Component
     // *********************CLEAR FILTERS FUNCITIONS --START--
     public function clearCategoryFilter()
     {
+
+        dd('test');
         unset($this->categories);
         $this->categories = [];
     }

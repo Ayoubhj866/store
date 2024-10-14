@@ -7,8 +7,12 @@
                         <li class=" hover:bg-gray-100 my-1">
                             <div class="flex items-center space-x-4 rtl:space-x-reverse">
                                 <div class="flex-shrink-0">
-                                    <img class="w-8 h-8 rounded-full" src="{{ $item->model->image }}"
-                                        alt="{{ $item->name }} image">
+                                    @php
+                                        $imageUrl = str_contains($item->model->image, 'picsum.photos')
+                                            ? $item->model->image
+                                            : asset('storage/' . $item->model->image);
+                                    @endphp
+                                    <img src="{{ $imageUrl }}" class="w-8 h-8 rounded-full" />
                                 </div>
                                 <div class="flex-1 min-w-0">
                                     <p class="text-sm font-medium text-gray-900 truncate dark:text-white">

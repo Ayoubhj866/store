@@ -20,7 +20,7 @@
                         </x-slot:append>
                     </x-mary-choices>
 
-                    {{-- Category --}}
+                    {{-- Brand --}}
                     <x-mary-choices label="Brand" icon="o-paper-clip" wire:model="brandId" :options="$this->brands" single>
                         <x-slot:append>
                             <x-mary-button icon="o-plus" class="rounded-none h-full w-full rounded-r-sm btn-primary" />

@@ -5,7 +5,6 @@ namespace App\Livewire\Admin;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Computed;
@@ -71,17 +70,21 @@ class CreateProduct extends Component
     {
         $validatedData = $this->validate();
 
-        dd($validatedData);
-
         DB::beginTransaction();
 
         try {
-            $product = Product::create(Arr::only($validatedData, ['name', 'description', 'price']));
-            $product->category()->associate($validatedData[]);
-            $product->brand()->associate($validatedData['brandId']);
-
-            // store image
-            $validatedData['image'] = Storage::disk('public')->putFile('productsImages', $validatedData['image']);
+            $product = Product::create(
+                [
+                    'name' => $validatedData['name'],
+                    'description' => $validatedData['description'],
+                    'price' => $validatedData['price'],
+                    'category_id' => $validatedData['categoryId'],
+                    'brand_id' => $validatedData['brandId'],
+                    'image' => Storage::disk('public')->putFile('productsImages', $validatedData['image']),
+                ]
+            );
+            // // store image
+            // $validatedData['image'] = Storage::disk('public')->putFile('productsImages', $validatedData['image']);
 
             // save
             $product->save();
@@ -93,14 +96,14 @@ class CreateProduct extends Component
                 position: 'bottom-end',
                 redirectTo: '/products'
             );
-        } catch (\Throwable $th) {
+        } catch (\Exception $e) {
             DB::rollBack();
-            dd($th->getMessage());
-            // $this->error(
-            //     title: 'Erro when creating product : '.$th->getMessage(),
-            //     position: 'bottom-end',
-            //     redirectTo: '/products'
-            // );
+            dd($e->getMessage());
+            $this->error(
+                title: 'Erro when creating product : '.$th->getMessage(),
+                position: 'bottom-end',
+                redirectTo: '/products'
+            );
         }
 
     }
